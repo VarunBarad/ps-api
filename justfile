@@ -17,3 +17,7 @@ db-start:
 # Stop local database server
 db-stop:
   docker-compose stop
+
+# Run server
+dev:
+  npm run start

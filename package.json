@@ -2,8 +2,9 @@
   "name": "ps-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write '{**/*,*}.{js,ts,jsx,tsx}'",
     "check-format": "prettier --check '{**/*,*}.{js,ts,jsx,tsx}'"
