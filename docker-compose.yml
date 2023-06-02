@@ -1,0 +1,10 @@
+version: "1.0"
+services:
+  ps_api_database:
+    image: postgres:15.3
+    environment:
+      POSTGRES_DB: ps-events
+      POSTGRES_USER: ps_dev
+      POSTGRES_PASSWORD: ps_db_password
+    ports:
+      - "5432:5432"
