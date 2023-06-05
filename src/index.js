@@ -11,6 +11,10 @@ pg.types.setTypeParser(pg.types.builtins.DATE, (stringValue) => {
 	return stringValue;
 });
 
+app.get('/', (request, response) => {
+	response.sendStatus(200);
+});
+
 app.get('/v1/events', async (request, response) => {
 	const queryOffset = request.query.offset || null;
 
