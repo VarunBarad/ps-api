@@ -36,7 +36,7 @@ app.get('/v1/events', async (request, response) => {
 			backlink: event.backlink,
 			location: event.location,
 			price: event.price,
-			genre: event.genre.map((genre) => genre.toLowerCase()),
+			genre: event.genre ? event.genre.map((genre) => genre.toLowerCase()) : [],
 		})),
 		nextOffset: null,
 		previousOffset: queryOffset,
