@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const database = require('pg-promise')()(process.env.DATABASE_URL);
 
 const app = express();
@@ -10,6 +11,8 @@ const pg = require('pg');
 pg.types.setTypeParser(pg.types.builtins.DATE, (stringValue) => {
 	return stringValue;
 });
+
+app.use(cors());
 
 app.get('/', (request, response) => {
 	response.sendStatus(200);
