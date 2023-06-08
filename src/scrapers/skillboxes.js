@@ -148,7 +148,9 @@ const parseTimes = (apiEvent) => {
 const parsePrice = (apiEvent) => {
 	const currency = apiEvent.converted_min_price_data.currency;
 
-	if (currency === 'INR') {
+	if (!currency) {
+		return null;
+	} else if (currency === 'INR') {
 		const amountMin = apiEvent.converted_min_price_data.converted_amount;
 		const amountMax = apiEvent.converted_max_price_data.converted_amount;
 
