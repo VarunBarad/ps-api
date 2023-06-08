@@ -2,15 +2,10 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const database = require('pg-promise')()(process.env.DATABASE_URL);
+const eventsDao = require('./database/events');
 
 const app = express();
 const port = 3000;
-
-const pg = require('pg');
-pg.types.setTypeParser(pg.types.builtins.DATE, (stringValue) => {
-	return stringValue;
-});
 
 app.use(cors());
 
@@ -19,9 +14,10 @@ app.get('/', (request, response) => {
 });
 
 app.get('/v1/events', async (request, response) => {
-	const queryOffset = request.query.offset || null;
+	const queryOffset = request.query.offset || 0;
+	const queryLimit = request.query.limit || 100;
 
-	const events = await database.any('select * from events');
+	const events = await eventsDao.getByLimitAndOffset(queryLimit, queryOffset);
 
 	response.json({
 		events: events.map((event) => ({
@@ -39,9 +35,9 @@ app.get('/v1/events', async (request, response) => {
 			backlink: event.backlink,
 			location: event.location,
 			price: event.price,
-			genre: event.genre ? event.genre.map((genre) => genre.toLowerCase()) : [],
+			genre: event.genre ? event.genre : [],
 		})),
-		nextOffset: null,
+		nextOffset: events.length > 0 ? queryOffset + events.length : null,
 		previousOffset: queryOffset,
 	});
 });
