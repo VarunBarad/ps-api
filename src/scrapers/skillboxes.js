@@ -76,7 +76,7 @@ const update = async () => {
 			countNewEvents++;
 		} else if (!hasSameData(fetchedEvent, matchingStoredEvent)) {
 			// update the entry
-			await eventsDao.update(fetchedEvent);
+			await eventsDao.update(matchingStoredEvent.id, fetchedEvent);
 			countUpdatedEvents++;
 		} else {
 			// no need to process this event
