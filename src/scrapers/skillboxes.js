@@ -93,7 +93,7 @@ const parseDates = (apiEvent) => {
 			startDate: `${year}-${month}-${day}`,
 			endDate: null,
 		};
-	} else if (/^\d+\w* \w+,? - \d+\w* \w+ \d+$/.test(apiEvent.event_date)) {
+	} else if (/^\d+\w* \w+,? [-&] \d+\w* \w+ \d+$/.test(apiEvent.event_date)) {
 		// has start and end date
 		const dateParts = apiEvent.event_date.split(/\s+/);
 		const dayStartNumber = parseInt(dateParts[0].replaceAll(/\D/g));
