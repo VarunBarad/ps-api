@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const scrappingHandler = require('./scrapers/index');
+
 const express = require('express');
 const cors = require('cors');
 const eventsDao = require('./database/events');
@@ -47,6 +49,15 @@ app.use((req, res) => {
 	res.sendStatus(404);
 });
 
-app.listen(port, () => {
-	console.log(`App running on port ${port}.`);
-});
+const startServer = () => {
+	app.listen(port, () => {
+		console.log(`App running on port ${port}.`);
+	});
+};
+
+const main = async () => {
+	startServer();
+	scrappingHandler.startUpdates();
+};
+
+main().then();
