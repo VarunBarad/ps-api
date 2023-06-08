@@ -41,8 +41,22 @@ const hasSameData = (event1, event2) => {
 		event1.name === event2.name &&
 		event1.location === event2.location &&
 		event1.price === event2.price &&
-		event1.genre === event2.genre
+		checkArrayEquality(event1.genre, event2.genre)
 	);
+};
+
+const checkArrayEquality = (array1, array2) => {
+	if (array1.length !== array2.length) {
+		return false;
+	}
+
+	for (const index in array1) {
+		if (array1[index] !== array2[index]) {
+			return false;
+		}
+	}
+
+	return true;
 };
 
 const update = async () => {
