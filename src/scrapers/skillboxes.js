@@ -29,24 +29,49 @@ const fetchEvents = async () => {
 		hasMoreResults = json.next;
 	}
 
-	const psEvents = apiEvents.map((event) => convertEvent(event));
+	return apiEvents.map((event) => convertEvent(event));
+};
 
-	const storedEvents = await eventsDao.getAllBySource(SOURCE);
-	const storedEventsBacklinks = storedEvents.map((event) => event.backlink);
-
-	return psEvents.filter((event) => {
-		return !storedEventsBacklinks.includes(event.backlink);
-	});
+const hasSameData = (event1, event2) => {
+	return (
+		event1.start_date === event2.start_date &&
+		event1.start_time === event2.start_time &&
+		event1.end_date === event2.end_date &&
+		event1.end_time === event2.end_time &&
+		event1.name === event2.name &&
+		event1.location === event2.location &&
+		event1.price === event2.price &&
+		event1.genre === event2.genre
+	);
 };
 
 const update = async () => {
-	const events = await fetchEvents();
+	const fetchedEvents = await fetchEvents();
 
-	for (const event of events) {
-		await eventsDao.insert(event);
+	const storedEvents = await eventsDao.getAllBySource(SOURCE);
+	let countNewEvents = 0;
+	let countUpdatedEvents = 0;
+	for (const fetchedEvent of fetchedEvents) {
+		const matchingStoredEvent = storedEvents.find((storedEvent) => {
+			return storedEvent.backlink === fetchedEvent.backlink;
+		});
+
+		if (!matchingStoredEvent) {
+			// store a new entry
+			await eventsDao.insert(fetchedEvent);
+			countNewEvents++;
+		} else if (!hasSameData(fetchedEvent, matchingStoredEvent)) {
+			// update the entry
+			await eventsDao.update(fetchedEvent);
+			countUpdatedEvents++;
+		} else {
+			// no need to process this event
+		}
 	}
 
-	console.log(`Inserted ${events.length} events from ${SOURCE}.`);
+	console.log(
+		`Inserted ${countNewEvents} and Updated ${countUpdatedEvents} events from ${SOURCE}.`,
+	);
 };
 
 const monthNameToNumber = (monthName) => {

@@ -40,8 +40,31 @@ const insert = async (event) => {
 	);
 };
 
+const update = async (eventId, event) => {
+	// language=PostgreSQL
+	return database.none(
+		`
+        update events
+        set start_date = $(event.start_date),
+            start_time = $(event.start_time),
+            end_date   = $(event.end_date),
+            end_time   = $(event.end_time),
+            name       = $(event.name),
+            location   = $(event.location),
+            price      = $(event.price),
+            genre      = $(event.genre)
+        where id = $(event.id)
+		`,
+		{
+			id: eventId,
+			event: event,
+		},
+	);
+};
+
 module.exports = {
 	getByLimitAndOffset,
 	getAllBySource,
 	insert,
+	update,
 };
