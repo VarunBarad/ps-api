@@ -173,7 +173,7 @@ const parseTimes = (apiEvent) => {
 		const minute = timeMinutes.toString().padStart(2, '0');
 
 		return {
-			startTime: `${hour}:${minute}`,
+			startTime: `${hour}:${minute}:00`,
 			endTime: null,
 		};
 	} else {
