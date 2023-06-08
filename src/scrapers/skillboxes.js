@@ -26,7 +26,7 @@ const fetchEvents = async () => {
 
 		apiEvents.push(...json.items);
 		resultsPage++;
-		hasMoreResults = false;
+		hasMoreResults = json.next;
 	}
 
 	const psEvents = apiEvents.map((event) => convertEvent(event));
