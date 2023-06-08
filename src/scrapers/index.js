@@ -8,6 +8,7 @@ const updateSource = async (source) => {
 		await source.update();
 	} catch (error) {
 		console.error(`Error in ${source.source} source: ${error}`);
+		console.error(error.stack);
 	}
 };
 
