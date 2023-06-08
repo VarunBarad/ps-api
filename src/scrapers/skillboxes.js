@@ -202,7 +202,7 @@ const convertEvent = (apiEvent) => {
 	const times = parseTimes(apiEvent);
 
 	return {
-		source: 'skillboxes',
+		source: SOURCE,
 		start_date: dates.startDate,
 		start_time: times.startTime,
 		end_date: dates.endDate,
