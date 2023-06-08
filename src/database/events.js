@@ -54,7 +54,7 @@ const update = async (eventId, event) => {
             location   = $(event.location),
             price      = $(event.price),
             genre      = $(event.genre)
-        where id = $(event.id)
+        where id = $(id)
 		`,
 		{
 			id: eventId,
