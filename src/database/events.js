@@ -50,6 +50,7 @@ const update = async (eventId, event) => {
             end_date   = $(event.end_date),
             end_time   = $(event.end_time),
             name       = $(event.name),
+            backlink   = $(event.backlink),
             location   = $(event.location),
             price      = $(event.price),
             genre      = $(event.genre)
