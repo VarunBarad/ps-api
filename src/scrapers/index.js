@@ -19,6 +19,13 @@ const startUpdates = () => {
 	});
 };
 
+const updateNow = async () => {
+	for (const source of Object.values(scrappers)) {
+		await updateSource(source);
+	}
+};
+
 module.exports = {
 	startUpdates,
+	updateNow,
 };
