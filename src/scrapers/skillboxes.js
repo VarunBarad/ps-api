@@ -194,7 +194,7 @@ const parsePrice = (apiEvent) => {
 		const amountMax = apiEvent.converted_max_price_data.converted_amount;
 
 		if (amountMin === amountMax) {
-			return amountMin;
+			return amountMin.toString();
 		} else {
 			return `${amountMax} - ${amountMin}`;
 		}
