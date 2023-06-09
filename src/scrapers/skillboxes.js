@@ -39,6 +39,7 @@ const hasSameData = (event1, event2) => {
 		event1.end_date === event2.end_date &&
 		event1.end_time === event2.end_time &&
 		event1.name === event2.name &&
+		event1.backlink === event2.backlink &&
 		event1.location === event2.location &&
 		event1.price === event2.price &&
 		checkArrayEquality(event1.genre, event2.genre)
