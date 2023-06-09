@@ -1,5 +1,6 @@
 const cron = require('node-cron');
 const scrappers = {
+	adidas: require('./adidas'),
 	skillboxes: require('./skillboxes'),
 };
 
